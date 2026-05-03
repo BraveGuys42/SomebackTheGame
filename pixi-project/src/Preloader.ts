@@ -47,7 +47,7 @@ export class Preloader extends Container {
             ]),
             {
               alias: "spin_button",
-              src: "assets/spin_button.png",
+              src: "./assets/spin_button.png",
             },
           ],
         },
