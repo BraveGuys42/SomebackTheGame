@@ -9,7 +9,6 @@ npm run dev
 You can edit the reelsets, paylines and symbols in public/SlotMachineData/
 example: appending to Paylines.json
 ```json
-...
 {
   "id": 8,
   "mask": [
@@ -18,14 +17,29 @@ example: appending to Paylines.json
     [1,0,0,0,1]
   ]
 }
-]
+```
+
+You can also edit runtime configurations in  `src\config\GameConfigs.ts`
+Faster animation speed
+```
+export const SPIN_CONFIG = {
+    columnStopTimes: [10,20,30,40,50]
+}
+```
+Using custom files for testing and debugging
+```
+export const ASSET_CONFIG = {
+    symbols: "SlotMachineData/RichSymbols.json",
+    reels: "SlotMachineData/Cheatset.json",
+    paylines: "SlotMachineData/CustomPaylines.json",
+} as const;
 ```
 
 ## Assumptions and Limitations
 - Fixed grid size: **3×5** (rows × columns)
 - Paylines are evaluated as **single-path masks**, selecting one symbol per column
 - Matching is **left-aligned and consecutive only**
-- Asset pipeline assumes all textures are preloaded and valid
+- Asset pipeline assumes all textures and JSONs are preloaded and valid
 - No runtime validation of external JSON data
   
 ## Project Structure
