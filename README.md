@@ -21,6 +21,13 @@ example: appending to Paylines.json
 ]
 ```
 
+## Assumptions and Limitations
+- Fixed grid size: **3×5** (rows × columns)
+- Paylines are evaluated as **single-path masks**, selecting one symbol per column
+- Matching is **left-aligned and consecutive only**
+- Asset pipeline assumes all textures are preloaded and valid
+- No runtime validation of external JSON data
+  
 ## Project Structure
 ```
 ├───public
