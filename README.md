@@ -1,3 +1,9 @@
+## Description
+A lightweight slot machine game built with PixiJS and TypeScript.
+It features animated reels, spin mechanics, and basic payline evaluation logic.
+
+This project was created to demonstrate skills in game rendering, UI layout, and interactive animation using modern web technologies.
+
 ## Usage
 ```
 cd pixi-project
@@ -26,7 +32,8 @@ export const SPIN_CONFIG = {
     columnStopTimes: [10,20,30,40,50]
 }
 ```
-Using custom files for testing and debugging
+Using custom files for testing and debugging, I recommend using `reels: "SlotMachineData/Cheatset.json"` for testing payline validations
+
 ```
 export const ASSET_CONFIG = {
     symbols: "SlotMachineData/RichSymbols.json",
