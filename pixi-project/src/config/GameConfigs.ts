@@ -13,5 +13,6 @@ export const COLS = 5;
 export const ASSET_CONFIG = {
   symbols: "SlotMachineData/Symbols.json",
   reels: "SlotMachineData/Reelset.json",
+  //reels: "SlotMachineData/Cheatset.json",
   paylines: "SlotMachineData/Paylines.json",
 } as const;

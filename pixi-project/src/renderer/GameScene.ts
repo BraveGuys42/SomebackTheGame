@@ -31,6 +31,7 @@ export class GameScene extends Container {
     super.destroy(options);
   }
 
+  //On resizing and maximizing, make sure that the elements are centralized
   layout() {
     const gap = 10;
 

@@ -30,6 +30,7 @@ export class GameController {
   }
 
   spin() {
+    //The final results are generated here,the the spinner is also initiated here
     if (this.isSpinning) return;
 
     this.isSpinning = true;
@@ -47,6 +48,7 @@ export class GameController {
   }
 
   private updateSpin = () => {
+    // elapsed time drives column stop progression (deterministic animation timing)
     const elapsed = performance.now() - this.spinStartTime;
 
     const lastStop = this.columnStopTimes[this.columnStopTimes.length - 1];
@@ -58,6 +60,8 @@ export class GameController {
       }
     }
 
+    //random spins are generated for the animations
+    //this has no influence on actual spin results
     const visualSpin = this.slotMachine.spin();
 
     for (let col = 0; col < 5; col++) {
@@ -66,6 +70,8 @@ export class GameController {
         this.gameScene.slotMachineUI.updateColumn(col, column);
 
         if (!this.bakedColumns.has(col)) {
+          //stop animating the columns after few seconds
+          //Animation time found in config/GameConfig.ts
           this.gameScene.slotMachineUI.bakeColumn(col);
           this.bakedColumns.add(col);
         }
@@ -75,13 +81,13 @@ export class GameController {
       }
     }
 
-    // END CONDITION
-    if (elapsed >= lastStop) {
+    if (elapsed > lastStop) {
       this.endSpin();
     }
   };
 
   private endSpin() {
+    //the reels should show the final view, valid paylines are shown
     this.gameScene.app.ticker.remove(this.updateSpin, this);
 
     const results = this.paylineEval.evaluate(this.finalSpin.gridView);

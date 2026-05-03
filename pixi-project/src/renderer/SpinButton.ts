@@ -1,5 +1,7 @@
 import { Container, Graphics, Sprite } from "pixi.js";
 
+// Interactive spin button UI component
+// Handles visual state (enabled/disabled) and click delegation to game logic
 export class SpinButton extends Container {
   private bg: Graphics;
   private fg: Sprite;
@@ -7,6 +9,7 @@ export class SpinButton extends Container {
   private buttonSize = 100;
   private clickHandler?: () => void;
 
+  // external click callback (decouples UI from game logic/controller)
   private handlePointerDown = () => {
     this.clickHandler?.();
   };
@@ -45,6 +48,8 @@ export class SpinButton extends Container {
     this.clickHandler = undefined;
   }
 
+  // toggles interactive state and visual feedback for button availability
+  // disables input and dims visuals when inactive
   setEnabled(enabled: boolean) {
     this.eventMode = enabled ? "static" : "none";
     this.cursor = enabled ? "pointer" : "default";

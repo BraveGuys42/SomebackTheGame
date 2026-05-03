@@ -1,9 +1,12 @@
 import { Application, Container, Text, Assets } from "pixi.js";
 import { SymbolData } from "./types/Types";
 
+// Full-screen preloader overlay responsible for asset loading and progress display
+// Uses Pixi Assets bundle system to load game resources before scene start
 export class Preloader extends Container {
   private loadingText: Text;
 
+  // Centered loading text overlay attached directly to Pixi stage
   constructor(private app: Application) {
     super();
 
@@ -28,8 +31,10 @@ export class Preloader extends Container {
     this.loadingText.y = this.app.screen.height / 2;
   }
 
+  // Builds Pixi asset manifest dynamically from symbol config
+  // Each symbol generates both foreground and background assets
+  // Loads all assets as a single bundle with progress callback
   async loadAssets(symbols: SymbolData[]) {
-    // Build manifest properly
     const manifest = {
       bundles: [
         {

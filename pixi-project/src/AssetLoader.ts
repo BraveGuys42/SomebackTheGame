@@ -18,10 +18,13 @@ export class AssetLoader {
 
       return { symbols, reels, paylines };
     } catch (err) {
+      //// wraps underlying error to provide contextual loader-level debugging info
       throw new Error(`[AssetLoader] Failed to load assets: ${String(err)}`);
     }
   }
 
+  // Generic JSON loader with HTTP validation and typed response parsing
+  // Logs local fetch errors but rethrows for upstream handling
   async loadJSON<T>(url: string): Promise<T> {
     try {
       const res = await fetch(url);

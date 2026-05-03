@@ -1,10 +1,13 @@
 import { Container, Sprite } from "pixi.js";
 import { GlowFilter } from "pixi-filters";
 
+// Visual representation of a single slot machine cell (foreground + background layers)
+// Handles symbol rendering, win highlighting, and state transitions (reset/bake/glow)
 export class SymbolCell extends Container {
   bg: Sprite;
   fg: Sprite;
 
+  // shared glow filter instance applied to winning cells (avoids per-cell allocations)
   static glow = new GlowFilter({
     distance: 15,
     outerStrength: 4,
