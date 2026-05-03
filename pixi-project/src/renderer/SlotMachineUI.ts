@@ -6,14 +6,17 @@ import { ROWS, COLS } from "../config/GameConfigs";
 export class SlotMachineUI extends Container {
   private cells: SymbolCell[][] = [];
 
-  cellSize = 100;
-  padding = 10;
+  cellSize;
+  padding;
 
   rows = ROWS;
   cols = COLS;
 
   constructor() {
     super();
+
+    this.cellSize = Math.min(120, window.innerWidth / 6);
+    this.padding = this.cellSize * 0.1;
     this.buildInitGrid();
   }
 
