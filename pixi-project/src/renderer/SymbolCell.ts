@@ -10,7 +10,7 @@ export class SymbolCell extends Container {
     outerStrength: 4,
     innerStrength: 3,
     color: 0xffff00,
-    quality: 0.5
+    quality: 0.5,
   });
 
   constructor(cellSize: number) {

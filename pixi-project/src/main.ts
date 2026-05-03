@@ -10,25 +10,22 @@ import { defaultRNG } from "./core/RNG";
 
 (async () => {
   try {
-
     // APP INIT
     const app = new Application();
-    await app.init({background: "#301c03",resizeTo: window,});
+    await app.init({ background: "#301c03", resizeTo: window });
 
     const container = document.getElementById("pixi-container");
     if (!container) {
-        throw new Error("Missing #pixi-container");
+      throw new Error("Missing #pixi-container");
     }
     container.appendChild(app.canvas);
 
-    
     // PRELOADER STAGE
     const assetLoader = new AssetLoader(ASSET_CONFIG);
     const { symbols, reels, paylines } = await assetLoader.loadAll();
 
     const preloader = new Preloader(app);
     app.stage.addChild(preloader);
-
 
     await preloader.loadAssets(symbols);
     app.stage.removeChild(preloader);
@@ -43,10 +40,9 @@ import { defaultRNG } from "./core/RNG";
     app.stage.addChild(gameScene);
 
     // CONTROLLER
-    const controller = new GameController(slotMachine, paylineEval,gameScene);
+    const controller = new GameController(slotMachine, paylineEval, gameScene);
     controller.connect();
-  } 
-  catch (err) {
+  } catch (err) {
     console.error("Fatal startup error", err);
     return;
   }

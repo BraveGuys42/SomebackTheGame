@@ -6,8 +6,9 @@
   "scripts": {
     "start": "npm run dev",
     "build": "npm run lint && tsc && vite build",
-    "lint": "eslint .",
-    "dev": "vite"
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "dev": "vite",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@pixi/filter-glow": "^5.2.1",
