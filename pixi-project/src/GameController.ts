@@ -1,0 +1,105 @@
+import { SPIN_CONFIG } from "./config/GameConfigs";
+import { PaylineEvaluator } from "./core/PaylineEvaluator";
+import { GameScene } from "./renderer/GameScene";
+import { SlotMachine } from "./core/SlotMachine";
+
+export class GameController {
+    private isSpinning = false;
+
+    private spinStartTime = 0;
+    private finalSpin: any;
+
+    private stoppedColumns = new Set<number>();
+    private bakedColumns = new Set<number>(); // ✅ FIX
+
+    private columnStopTimes = SPIN_CONFIG.columnStopTimes;
+
+    constructor(
+        private slotMachine: SlotMachine,
+        private paylineEval: PaylineEvaluator,
+        private gameScene: GameScene
+    ) {}
+
+    connect() {
+        this.gameScene.spinButton.onClick(this.spin.bind(this));
+    }
+
+    disconnect() {
+        this.gameScene.spinButton.removeClick();
+    }
+
+    spin() {
+        if (this.isSpinning) return;
+
+        this.isSpinning = true;
+        this.spinStartTime = performance.now();
+
+        this.stoppedColumns.clear();
+        this.bakedColumns.clear();
+
+        this.gameScene.spinButton.setEnabled(false);
+        this.gameScene.slotMachineUI.reset();
+
+        this.finalSpin = this.slotMachine.spin();
+
+        this.gameScene.app.ticker.add(this.updateSpin, this);
+    }
+
+    private updateSpin = () => {
+        const elapsed = performance.now() - this.spinStartTime;
+
+        const lastStop = this.columnStopTimes[this.columnStopTimes.length - 1];
+
+        // update stopped columns
+        for (let i = 0; i < this.columnStopTimes.length; i++) {
+            if (elapsed > this.columnStopTimes[i]) {
+                this.stoppedColumns.add(i);
+            }
+        }
+
+        const visualSpin = this.slotMachine.spin();
+
+        for (let col = 0; col < 5; col++) {
+            if (this.stoppedColumns.has(col)) {
+                const column = this.getColumn(this.finalSpin.gridView, col);
+                this.gameScene.slotMachineUI.updateColumn(col, column);
+
+                if (!this.bakedColumns.has(col)) {
+                    this.gameScene.slotMachineUI.bakeColumn(col);
+                    this.bakedColumns.add(col);
+                }
+
+            } else {
+                const column = this.getColumn(visualSpin.gridView, col);
+                this.gameScene.slotMachineUI.updateColumn(col, column);
+            }
+        }
+
+        // END CONDITION
+        if (elapsed >= lastStop) {
+            this.endSpin();
+        }
+    };
+
+    private endSpin() {
+        this.gameScene.app.ticker.remove(this.updateSpin, this);
+
+        const results = this.paylineEval.evaluate(this.finalSpin.gridView);
+
+        this.gameScene.slotMachineUI.showValidPaylines(results.winGridMask);
+
+        this.gameScene.runInfoPanel.setData({
+            pos: this.finalSpin.pos,
+            totalScore: results.totalScore,
+            paylines: results.paylines,
+            scores: results.scores
+        });
+
+        this.isSpinning = false;
+        this.gameScene.spinButton.setEnabled(true);
+    }
+
+    private getColumn(grid: string[][], col: number): string[] {
+        return grid.map(row => row[col]);
+    }
+}

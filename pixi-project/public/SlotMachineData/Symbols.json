@@ -1,0 +1,50 @@
+[
+    {
+    "Symbol" : "hv1",
+    "Score" : [10,20,30],
+    "fg" : "/assets/SymbolFG/hv1_symbol.png",
+    "bg" : "/assets/SymbolBG/hv1_bg.png"
+    },
+    {
+    "Symbol" : "hv2",
+    "Score" : [5,10,20],
+    "fg" : "assets/SymbolFG/hv2_symbol.png",
+    "bg" : "/assets/SymbolBG/hv2_bg.png"
+    },
+    {
+    "Symbol" : "hv3",
+    "Score" : [5,10,15],
+    "fg" : "assets/SymbolFG/hv3_symbol.png",
+    "bg" : "/assets/SymbolBG/hv3_bg.png"
+    },
+    {
+    "Symbol" : "hv4",
+    "Score" : [5,10,15],
+    "fg" : "assets/SymbolFG/hv4_symbol.png",
+    "bg" : "/assets/SymbolBG/hv4_bg.png"
+    },
+    {
+    "Symbol" : "lv1",
+    "Score" : [2,5,10],
+    "fg" : "assets/SymbolFG/lv1_symbol.png",
+    "bg" : "/assets/SymbolBG/lv1_bg.png"
+    },
+    {
+    "Symbol" : "lv2",
+    "Score" : [1,2,5],
+    "fg" : "assets/SymbolFG/lv2_symbol.png",
+    "bg" : "/assets/SymbolBG/lv2_bg.png"
+    },
+    {
+    "Symbol" : "lv3",
+    "Score" : [1,2,3],
+    "fg" : "assets/SymbolFG/lv3_symbol.png",
+    "bg" : "/assets/SymbolBG/lv3_bg.png"
+    },
+    {
+    "Symbol" : "lv4",
+    "Score" : [1,2,3],
+    "fg" : "assets/SymbolFG/lv4_symbol.png",
+    "bg" : "/assets/SymbolBG/lv4_bg.png"
+    }
+]
