@@ -13,11 +13,7 @@ export class GameApp {
   private readonly paylineEval: PaylineEvaluator;
   private readonly gameScene: GameScene;
 
-  constructor(
-    app: Application,
-    reels: ReelsetData[],
-    paylines: PaylineData[],
-    symbols: SymbolData[],
+  constructor(app: Application, reels: ReelsetData[], paylines: PaylineData[], symbols: SymbolData[],
   ) {
     this.slotMachine = new SlotMachine(reels, defaultRNG);
     this.paylineEval = new PaylineEvaluator(paylines, symbols);
@@ -27,11 +23,7 @@ export class GameApp {
   }
 
   public run() {
-    this.controller = new GameController(
-      this.slotMachine,
-      this.paylineEval,
-      this.gameScene,
-    );
+    this.controller = new GameController(this.slotMachine, this.paylineEval, this.gameScene);
     this.controller.connect();
   }
 }
