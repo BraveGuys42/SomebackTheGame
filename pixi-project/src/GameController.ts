@@ -23,10 +23,12 @@ export class GameController {
 
   connect() {
     this.gameScene.spinButton.onClick(this.spin.bind(this));
+    window.addEventListener("keydown", this.onKeyDown);
   }
 
   disconnect() {
     this.gameScene.spinButton.removeClick();
+    window.removeEventListener("keydown", this.onKeyDown);
   }
 
   spin() {
@@ -105,7 +107,16 @@ export class GameController {
     this.gameScene.spinButton.setEnabled(true);
   }
 
+  //Helper function for animation
   private getColumn(grid: string[][], col: number): string[] {
     return grid.map((row) => row[col]);
   }
+
+  //Helper function for keyboard input
+  private onKeyDown = (e: KeyboardEvent) => {
+    if (e.code === "Space") {
+      e.preventDefault(); // stops page scroll
+      this.spin();
+    }
+  };
 }

@@ -1,12 +1,8 @@
 import { Application } from "pixi.js";
 import { Preloader } from "./Preloader";
-import { SlotMachine } from "./core/SlotMachine";
-import { PaylineEvaluator } from "./core/PaylineEvaluator";
-import { GameController } from "./GameController";
-import { GameScene } from "./renderer/GameScene";
 import { ASSET_CONFIG } from "./config/GameConfigs";
 import { AssetLoader } from "./AssetLoader";
-import { defaultRNG } from "./core/RNG";
+import { GameApp } from "./GameApp";
 
 (async () => {
   try {
@@ -31,17 +27,9 @@ import { defaultRNG } from "./core/RNG";
     app.stage.removeChild(preloader);
     preloader.destroy();
 
-    // ENGINE (BACKEND)
-    const slotMachine = new SlotMachine(reels, defaultRNG);
-    const paylineEval = new PaylineEvaluator(paylines, symbols);
-
-    // VIEW (FRONTEND)
-    const gameScene = new GameScene(app);
-    app.stage.addChild(gameScene);
-
-    // CONTROLLER
-    const controller = new GameController(slotMachine, paylineEval, gameScene);
-    controller.connect();
+    // RUN MAIN GAME
+    const game = new GameApp(app, reels, paylines, symbols);
+    game.run();
   } catch (err) {
     console.error("Fatal startup error", err);
     return;
